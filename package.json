@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "api": "npx newman run News_Api_Everything.json",
+    "api:env": "npx newman run News_Api_Everything.json -e env_News_Api_Everything.postman_environment.json"
   },
   "keywords": [],
   "author": "",

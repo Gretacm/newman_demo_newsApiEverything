@@ -1,0 +1,217 @@
+{
+	"info": {
+		"_postman_id": "05dc1a62-5701-4b0e-88eb-b74af0d7e7f9",
+		"name": "News_Api_Everything",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47787458",
+		"_collection_link": "https://getulee-6825746.postman.co/workspace/API_Demo~c7e662a1-a3bc-4d9d-a179-a1f85ff4dc23/collection/47787458-05dc1a62-5701-4b0e-88eb-b74af0d7e7f9?action=share&source=collection_link&creator=47787458"
+	},
+	"item": [
+		{
+			"name": "Negative",
+			"item": [
+				{
+					"name": "Negative_Authentification",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"pm.test(\"API key is missing\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"API key is missing\");",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}v2/top-headlines/sources",
+							"host": [
+								"{{baseUrl}}v2"
+							],
+							"path": [
+								"top-headlines",
+								"sources"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Positive",
+			"item": [
+				{
+					"name": "Authentification",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function setupHeaders(){",
+									"const apiKey = pm.collectionVariables.get(\"apiKey\");",
+									"",
+									"const contentType = {",
+									"    key: \"Content-Type\",",
+									"    value: \"application/json\"",
+									"",
+									"}",
+									"const cookie ={",
+									"    key: \"Cookie\",",
+									"    value: 'token=${{token}}'",
+									"}",
+									"pm.request.headers.add(contentType);",
+									"pm.request.headers.add(cookie);",
+									"",
+									"};",
+									"setupHeaders();"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "X-Api-Key",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": "{{apiKey}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}v2/top-headlines/sources",
+							"host": [
+								"{{baseUrl}}v2"
+							],
+							"path": [
+								"top-headlines",
+								"sources"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get_All_Post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}",
+							"host": [
+								"{{baseUrl}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get_One_Post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}",
+							"host": [
+								"{{baseUrl}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://newsapi.org"
+		},
+		{
+			"key": "apiKey",
+			"value": "Add yor API key"
+		}
+	]
+}
