@@ -28,6 +28,6 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm run build --if-present
-    - run: npm run api:env
-    # - run: npm i -g newman
-    # - run: newman run News_Api_Everything.json -e env_News_Api_Everything.postman_environment.json
+    # - run: npm run api:env
+    - run: npm i -g newman
+    - run: newman run News_Api_Everything.json 

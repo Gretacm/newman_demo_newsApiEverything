@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "api": "npx newman run News_Api_Everything.json",
-    "api:env": "npx newman run News_Api_Everything.json -e env_News_Api_Everything.postman_environment.json"
+    "api:env": "npx newman run News_Api_Everything.json"
   },
   "keywords": [],
   "author": "",
