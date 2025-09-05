@@ -152,7 +152,7 @@
 	"variable": [
 		{
 			"key": "baseUrl",
-			"value": "https://newsapi.org"
+			"value": "https://newsapi.org/"
 		},
 		{
 			"key": "apiKey",
