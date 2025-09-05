@@ -30,4 +30,4 @@ jobs:
     - run: npm run build --if-present
     # - run: npm run api:env
     - run: npm i -g newman
-    - run: newman run News_Api_Everything.json 
+    - run: newman run News_Api_Everything.postman_collection.json 

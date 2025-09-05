@@ -8,86 +8,6 @@
 	},
 	"item": [
 		{
-			"name": "Negative",
-			"item": [
-				{
-					"name": "Get news without authorisation",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 401\", function () {",
-									"    pm.response.to.have.status(401);",
-									"});",
-									"",
-									"pm.test(\"Status must be 'error'\", function () {",
-									"    pm.expect(pm.response.json().status).to.eql(\"error\");",
-									"});",
-									"",
-									"pm.test(\"Code must be 'apiKeyMissing'\", function () {",
-									"    pm.expect(pm.response.json().code).to.eql(\"apiKeyMissing\");",
-									"});",
-									"",
-									"pm.test(\"Message texts is correct\", function () {",
-									"    pm.expect(pm.response.json().message).to.eql(\"Your API key is missing. Append this to the URL with the apiKey param, or use the x-api-key HTTP header.\");",
-									"});",
-									" "
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}v2/everything?q={{newsTitle}}",
-							"host": [
-								"{{baseUrl}}v2"
-							],
-							"path": [
-								"everything"
-							],
-							"query": [
-								{
-									"key": "q",
-									"value": "{{newsTitle}}"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
 			"name": "Positive",
 			"item": [
 				{
@@ -286,6 +206,86 @@
 								{
 									"key": "language",
 									"value": "fr"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Negative",
+			"item": [
+				{
+					"name": "Get news without authorisation",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"",
+									"pm.test(\"Status must be 'error'\", function () {",
+									"    pm.expect(pm.response.json().status).to.eql(\"error\");",
+									"});",
+									"",
+									"pm.test(\"Code must be 'apiKeyMissing'\", function () {",
+									"    pm.expect(pm.response.json().code).to.eql(\"apiKeyMissing\");",
+									"});",
+									"",
+									"pm.test(\"Message texts is correct\", function () {",
+									"    pm.expect(pm.response.json().message).to.eql(\"Your API key is missing. Append this to the URL with the apiKey param, or use the x-api-key HTTP header.\");",
+									"});",
+									" "
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}v2/everything?q={{newsTitle}}",
+							"host": [
+								"{{baseUrl}}v2"
+							],
+							"path": [
+								"everything"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "{{newsTitle}}"
 								}
 							]
 						}
