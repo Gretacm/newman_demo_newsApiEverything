@@ -9,49 +9,13 @@
 	"item": [
 		{
 			"name": "Negative",
-			"item": [
-				{
-					"name": "Negative_Authentification",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 401\", function () {",
-									"    pm.response.to.have.status(401);",
-									"});",
-									"pm.test(\"API key is missing\", function () {",
-									"    pm.expect(pm.response.text()).to.include(\"API key is missing\");",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}v2/top-headlines/sources",
-							"host": [
-								"{{baseUrl}}v2"
-							],
-							"path": [
-								"top-headlines",
-								"sources"
-							]
-						}
-					},
-					"response": []
-				}
-			]
+			"item": []
 		},
 		{
 			"name": "Positive",
 			"item": [
 				{
-					"name": "Authentification",
+					"name": "Get news",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -60,20 +24,48 @@
 									"function setupHeaders(){",
 									"const apiKey = pm.collectionVariables.get(\"apiKey\");",
 									"",
-									"const contentType = {",
-									"    key: \"Content-Type\",",
-									"    value: \"application/json\"",
-									"",
+									"const objectApiKey ={",
+									"    key: \"X-Api-Key\",",
+									"    value: apiKey",
 									"}",
-									"const cookie ={",
-									"    key: \"Cookie\",",
-									"    value: 'token=${{token}}'",
-									"}",
-									"pm.request.headers.add(contentType);",
-									"pm.request.headers.add(cookie);",
+									"pm.request.headers.add(objectApiKey);",
 									"",
 									"};",
 									"setupHeaders();"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"let newsTitle= pm.collectionVariables.get(\"newsTitle\")",
+									"pm.test(`All articles titles has ${newsTitle}`, function () {",
+									"    let jsonData = pm.response.json();",
+									"    jsonData.articles.forEach(article => {",
+									"        pm.expect(article.title).to.include(newsTitle);",
+									"    });",
+									"});",
+									" ",
+									" pm.test(\"Status must be 'ok'\", function () {",
+									"    pm.expect(pm.response.json().status).to.eql(\"ok\");",
+									"});",
+									"",
+									"pm.test(\"totalResults must be number and equal to articles length\", function () {",
+									"    let jsonData = pm.response.json();",
+									"    pm.expect(jsonData.totalResults).to.be.a('number');",
+									"    if(jsonData.totalResults > 100){",
+									"        pm.expect(jsonData.articles.length).to.eql(100);",
+									"    }else{",
+									"        pm.expect(jsonData.totalResults).to.eql(jsonData.articles.length);",
+									"    }",
+									"});",
+									" "
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -111,69 +103,22 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}v2/top-headlines/sources",
+							"raw": "{{baseUrl}}v2/everything?q={{newsTitle}}&searchIn=title",
 							"host": [
 								"{{baseUrl}}v2"
 							],
 							"path": [
-								"top-headlines",
-								"sources"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get_All_Post",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}",
-							"host": [
-								"{{baseUrl}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get_One_Post",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}",
-							"host": [
-								"{{baseUrl}}"
+								"everything"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "{{newsTitle}}"
+								},
+								{
+									"key": "searchIn",
+									"value": "title"
+								}
 							]
 						}
 					},
@@ -212,6 +157,14 @@
 		{
 			"key": "apiKey",
 			"value": "Add yor API key"
+		},
+		{
+			"key": "endPoint1",
+			"value": "/v2/everything"
+		},
+		{
+			"key": "newsTitle",
+			"value": "Trump"
 		}
 	]
 }
