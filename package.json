@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "api": "npx newman run News_Api_Everything.postman_collection.json"
+    "api": "newman run News_Api_Everything.postman_collection.json"
   },
   "keywords": [],
   "author": "",
