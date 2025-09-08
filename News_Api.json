@@ -18,7 +18,8 @@
 							"script": {
 								"exec": [
 									"function setupHeaders(){",
-									"const apiKey = pm.collectionVariables.get(\"apiKey\");",
+									"// const apiKey = pm.collectionVariables.get(\"apiKey\");",
+									"const apiKey = pm.environment.get(\"envApiKey\");",
 									"",
 									"const objectApiKey ={",
 									"    key: \"X-Api-Key\",",
@@ -73,19 +74,7 @@
 					},
 					"request": {
 						"auth": {
-							"type": "apikey",
-							"apikey": [
-								{
-									"key": "key",
-									"value": "X-Api-Key",
-									"type": "string"
-								},
-								{
-									"key": "value",
-									"value": "{{apiKey}}",
-									"type": "string"
-								}
-							]
+							"type": "noauth"
 						},
 						"method": "GET",
 						"header": [],
@@ -99,11 +88,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}v2/everything?q={{newsTitle}}&searchIn=title",
+							"raw": "{{baseUrl}}/v2/everything?q={{newsTitle}}&searchIn=title",
 							"host": [
-								"{{baseUrl}}v2"
+								"{{baseUrl}}"
 							],
 							"path": [
+								"v2",
 								"everything"
 							],
 							"query": [
@@ -191,11 +181,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}v2/everything?q=trump&language=fr",
+							"raw": "{{baseUrl}}/v2/everything?q=trump&language=fr",
 							"host": [
-								"{{baseUrl}}v2"
+								"{{baseUrl}}"
 							],
 							"path": [
+								"v2",
 								"everything"
 							],
 							"query": [
@@ -275,11 +266,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}v2/everything?q={{newsTitle}}",
+							"raw": "{{baseUrl}}/v2/everything?q={{newsTitle}}",
 							"host": [
-								"{{baseUrl}}v2"
+								"{{baseUrl}}"
 							],
 							"path": [
+								"v2",
 								"everything"
 							],
 							"query": [
@@ -320,7 +312,7 @@
 	"variable": [
 		{
 			"key": "baseUrl",
-			"value": "https://newsapi.org/"
+			"value": "https://newsapi.org"
 		},
 		{
 			"key": "apiKey",
