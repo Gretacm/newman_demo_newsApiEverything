@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "api": "newman run News_Api.json -e env_newsapi.json",
-    "apienv": "newman run News_Api.json --env-var 'envApiKey=5bca1e1e51da4285b68b607db2b95d22'"
+    "api": "newman run News_Api.json -e env_newsapi.json"
   },
   "keywords": [],
   "author": "",
