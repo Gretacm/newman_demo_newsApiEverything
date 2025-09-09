@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "api": "newman run News_Api.json -e env_newsapi.json"
+    "api": "newman run News_Api.json -e env_newsapi.json",
+    "api:r": "newman run News_Api.json -e env_newsapi.json -r cli,json",
+    "api:rh": "npx newman run News_Api.json -e env_newsapi.json -r htmlextra"
   },
   "keywords": [],
   "author": "",
@@ -11,5 +13,8 @@
   "description": "",
   "devDependencies": {
     "newman": "^6.2.1"
+  },
+  "dependencies": {
+    "newman-reporter-htmlextra": "^1.23.1"
   }
 }
